@@ -1,0 +1,127 @@
+/* 
+==============================================
+Shop Page Styles
+==============================================
+*/
+
+.shop-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Shop Header Section */
+.shop-header {
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245, 166, 35, 0.12), transparent),
+              linear-gradient(180deg, #161926 0%, var(--bg-primary) 100%);
+  padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+  animation: slideInDown 0.5s ease;
+}
+
+.shop-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 40%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shop-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Shop Content Section */
+.shop-content {
+  flex: 1;
+  padding: 2.5rem 1.5rem 4rem;
+  background-color: var(--bg-primary);
+}
+
+/* Results Info */
+.results-info {
+  margin-bottom: 1.75rem;
+  padding: 0.85rem 1.25rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  animation: slideInUp 0.5s ease;
+}
+
+.results-count {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.results-count strong {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .shop-header {
+    padding: 2rem 1rem;
+  }
+
+  .shop-title {
+    font-size: 2rem;
+  }
+
+  .shop-subtitle {
+    font-size: 1rem;
+  }
+
+  .shop-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .results-info {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .results-count {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .shop-header {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .shop-title {
+    font-size: 1.5rem;
+  }
+
+  .shop-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .shop-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .results-info {
+    padding: 0.75rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .results-count {
+    font-size: 0.85rem;
+  }
+}

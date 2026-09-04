@@ -1,0 +1,118 @@
+/* 
+==============================================
+SearchBar Component Styles
+==============================================
+*/
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 2rem;
+  animation: slideInDown 0.5s ease;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-light);
+  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.search-input-container:focus-within {
+  border-color: var(--primary-color);
+  background-color: var(--bg-white);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+}
+
+.search-icon {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-clear-btn {
+  background: none;
+  border: none;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear-btn:hover {
+  color: var(--primary-color);
+  transform: scale(1.15);
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .search-bar {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    padding: 0.75rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .search-icon {
+    font-size: 1rem;
+    padding-left: 0.75rem;
+  }
+
+  .search-clear-btn {
+    padding: 0 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .search-bar {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input-container {
+    border-radius: 8px;
+  }
+
+  .search-input {
+    padding: 0.7rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .search-icon {
+    font-size: 0.95rem;
+    padding-left: 0.7rem;
+  }
+
+  .search-clear-btn {
+    padding: 0 0.7rem;
+    font-size: 1rem;
+  }
+}

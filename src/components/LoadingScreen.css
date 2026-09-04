@@ -1,0 +1,218 @@
+/* 
+==============================================
+LoadingScreen Component Styles (Dark Artistic Theme)
+==============================================
+*/
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 90% 70% at 50% 40%, #1e2438 0%, #0a0c13 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.25) 0%, rgba(140, 122, 230, 0.05) 70%, transparent 100%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle-1 {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 10%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  width: 120px;
+  height: 120px;
+  top: 20%;
+  right: 15%;
+  animation-duration: 10s;
+  animation-delay: 1s;
+}
+
+.particle-3 {
+  width: 60px;
+  height: 60px;
+  bottom: 15%;
+  left: 20%;
+  animation-duration: 7s;
+  animation-delay: 2s;
+}
+
+.particle-4 {
+  width: 100px;
+  height: 100px;
+  bottom: 10%;
+  right: 10%;
+  animation-duration: 9s;
+  animation-delay: 1.5s;
+}
+
+.particle-5 {
+  width: 70px;
+  height: 70px;
+  top: 50%;
+  left: 50%;
+  animation-duration: 8.5s;
+  animation-delay: 0.5s;
+}
+
+/* Gradient overlay */
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+/* Loading content */
+.loading-content {
+  text-align: center;
+  z-index: 2;
+  animation: fadeInScale 1s ease 0.5s both;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.loading-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: 2px;
+  animation: slideInDown 1s ease 0.8s both;
+}
+
+.loading-tagline {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 1rem 0 0 0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  animation: slideInUp 1s ease 1s both;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 12px;
+  z-index: 2;
+  animation: fadeIn 1s ease 1.5s both;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  animation: pulse 1.5s ease infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loading-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+
+  .loading-tagline {
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+  }
+
+  .particle-1 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .particle-2 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .particle-3 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .particle-4 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .particle-5 {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  .loading-tagline {
+    font-size: 0.85rem;
+    letter-spacing: 0px;
+  }
+
+  .loading-indicator {
+    bottom: 30px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    gap: 8px;
+  }
+}

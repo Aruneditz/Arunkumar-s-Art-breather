@@ -1,0 +1,45 @@
+/* 
+==============================================
+CategoryCards Component Styles
+==============================================
+*/
+
+.category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Responsive Design - Large Tablet */
+@media (max-width: 1024px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Responsive Design - Small Tablet */
+@media (max-width: 600px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}

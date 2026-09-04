@@ -1,0 +1,310 @@
+/* 
+==============================================
+Home Page Styles (Dark Artistic Theme)
+==============================================
+*/
+
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+/* Hero Section - Dark Artistic Ambience */
+.hero {
+  background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(245, 166, 35, 0.15), transparent),
+              radial-gradient(ellipse 60% 50% at 80% 50%, rgba(140, 122, 230, 0.12), transparent),
+              linear-gradient(180deg, #121522 0%, var(--bg-primary) 100%);
+  padding: 6.5rem 1.5rem 5.5rem;
+  text-align: center;
+  color: var(--text-primary);
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hero-content {
+  max-width: 820px;
+  z-index: 2;
+  animation: slideInUp 0.8s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #ffffff 30%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  margin-bottom: 2.25rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+  padding: 0.95rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.hero-buttons .btn-primary {
+  background-color: var(--primary-color);
+  color: #0f111a;
+  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.35);
+}
+
+.hero-buttons .btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(245, 166, 35, 0.5);
+}
+
+.hero-buttons .btn-outline {
+  border: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.hero-buttons .btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: rgba(245, 166, 35, 0.1);
+  transform: translateY(-3px);
+}
+
+/* Section Styles */
+.featured-section,
+.categories-section {
+  padding: 5rem 1.5rem;
+  background-color: var(--bg-primary);
+}
+
+.categories-section {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-title {
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+/* Featured CTA Section */
+.featured-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.featured-cta .btn {
+  padding: 0.95rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Why Us Section */
+.why-us-section {
+  padding: 5rem 1.5rem;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+}
+
+.benefit-card {
+  background-color: var(--bg-card);
+  padding: 2.25rem 1.5rem;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.benefit-card:hover {
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(245, 166, 35, 0.1);
+  transform: translateY(-6px);
+  border-color: rgba(245, 166, 35, 0.35);
+  background-color: var(--bg-card-hover);
+}
+
+.benefit-icon {
+  font-size: 2.8rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.3));
+}
+
+.benefit-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.benefit-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* About Section */
+.about-section {
+  padding: 5rem 1.5rem;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.about-content p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero {
+    padding: 4rem 1rem;
+    min-height: 300px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .featured-section,
+  .categories-section,
+  .why-us-section,
+  .about-section {
+    padding: 3rem 1rem;
+  }
+
+  .featured-cta .btn {
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-buttons {
+    gap: 1rem;
+  }
+
+  .hero-buttons .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .benefit-card {
+    padding: 1.5rem;
+  }
+
+  .benefit-icon {
+    font-size: 2.5rem;
+  }
+
+  .featured-section,
+  .categories-section,
+  .why-us-section,
+  .about-section {
+    padding: 2rem 1rem;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+  }
+
+  .featured-cta {
+    margin-top: 2rem;
+  }
+
+  .featured-cta .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+}
