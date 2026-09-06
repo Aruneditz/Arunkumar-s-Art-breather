@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import products from '../data/products';
 import './BuyNowCheckout.css';
 
 /**
@@ -33,6 +34,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
   
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedAdditionalArt, setSelectedAdditionalArt] = useState([]);
   const [formData, setFormData] = useState({
     fullName: '',
     mobileNumber: '',
@@ -108,9 +110,31 @@ function BuyNowCheckout({ cartCount = 0 }) {
     setQuantity(newQuantity);
   };
 
-  // Price calculations
+  // Toggle selection for companion artworks in "Complete Your Collection"
+  const handleToggleAdditional = (art) => {
+    setSelectedAdditionalArt(prev => {
+      const exists = prev.some(item => item.id === art.id);
+      if (exists) {
+        return prev.filter(item => item.id !== art.id);
+      } else {
+        return [...prev, { ...art, quantity: 1 }];
+      }
+    });
+  };
+
+  // Curated companion artworks (excluding current main product)
+  const suggestedArtworks = product 
+    ? products.filter(p => p.id !== product.id)
+    : [];
+
+  // Dynamic Price calculations
   const productPrice = product?.price || 0;
-  const subtotal = productPrice * quantity;
+  const mainSubtotal = productPrice * quantity;
+  const additionalSubtotal = selectedAdditionalArt.reduce(
+    (sum, item) => sum + (item.price * (item.quantity || 1)), 
+    0
+  );
+  const subtotal = mainSubtotal + additionalSubtotal;
   const tax = Math.round(subtotal * TAX_RATE);
   const discount = Math.round(subtotal * (DISCOUNT_PERCENTAGE / 100));
   const totalBeforeDelivery = subtotal + tax - discount;
@@ -128,14 +152,24 @@ function BuyNowCheckout({ cartCount = 0 }) {
 
     // Simulate processing
     setTimeout(() => {
-      // Create order object
+      // Build comprehensive order item list
+      const orderItems = [
+        { ...product, quantity, isMain: true },
+        ...selectedAdditionalArt.map(item => ({ ...item, quantity: 1, isAdditional: true }))
+      ];
+
+      // Create order object carrying all products
       const buyNowOrder = {
         type: 'buynow',
         product: product,
-        quantity: quantity,
+        items: orderItems,
+        selectedAdditionalArt,
+        quantity: quantity + selectedAdditionalArt.length,
         customerDetails: formData,
         pricing: {
           productPrice,
+          mainSubtotal,
+          additionalSubtotal,
           subtotal,
           tax,
           discount,
@@ -239,6 +273,61 @@ function BuyNowCheckout({ cartCount = 0 }) {
               </div>
             </div>
 
+            {/* Complete Your Collection (Mobile Add More Art Section) */}
+            <div className="checkout-card complete-collection-card">
+              <div className="collection-header">
+                <span className="collection-badge">Complete Your Collection</span>
+                <h2 className="collection-title">Add More Art ✨</h2>
+                <p className="collection-subtitle">Pick companion artworks to build your personal art collection</p>
+              </div>
+
+              <div className="suggested-art-grid">
+                {suggestedArtworks.map((art) => {
+                  const isSelected = selectedAdditionalArt.some(item => item.id === art.id);
+                  return (
+                    <div
+                      key={art.id}
+                      className={`suggested-art-item ${isSelected ? 'selected' : ''}`}
+                      onClick={() => handleToggleAdditional(art)}
+                      role="checkbox"
+                      aria-checked={isSelected}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleToggleAdditional(art);
+                        }
+                      }}
+                    >
+                      <div className="suggested-art-media">
+                        <img src={`/${art.image}`} alt={art.title} className="suggested-art-img" />
+                      </div>
+                      <div className="suggested-art-details">
+                        <div className="suggested-art-main">
+                          <h4 className="suggested-art-title">{art.title}</h4>
+                          <span className="suggested-art-cat">{art.category}</span>
+                        </div>
+                        <div className="suggested-art-action">
+                          <span className="suggested-art-price">₹{art.price}</span>
+                          <button
+                            type="button"
+                            className={`art-select-toggle-btn ${isSelected ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleToggleAdditional(art);
+                            }}
+                            aria-label={isSelected ? `Remove ${art.title}` : `Add ${art.title}`}
+                          >
+                            {isSelected ? '✓ Added' : '+ Add'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Customer Details Form */}
             <div className="checkout-card customer-card">
               <h2>Customer Details</h2>
@@ -321,15 +410,31 @@ function BuyNowCheckout({ cartCount = 0 }) {
             <div className="summary-card">
               <h3>Price Details</h3>
 
-              <div className="price-row">
-                <span className="label">Product Price</span>
-                <span className="value">₹{productPrice}</span>
+              {/* Main Artwork */}
+              <div className="price-row main-art-row">
+                <span className="label">
+                  <strong className="main-art-badge">Main</strong> {product.title}
+                </span>
+                <span className="value">₹{mainSubtotal}</span>
               </div>
 
-              <div className="price-row">
-                <span className="label">Quantity</span>
-                <span className="value">{quantity}</span>
-              </div>
+              {/* Additional Selected Artworks */}
+              {selectedAdditionalArt.map(art => (
+                <div key={art.id} className="price-row additional-art-row">
+                  <span className="label">
+                    <span className="plus-symbol">+</span> {art.title}
+                  </span>
+                  <span className="value">₹{art.price}</span>
+                </div>
+              ))}
+
+              {/* Quantity indicator if only main product */}
+              {selectedAdditionalArt.length === 0 && (
+                <div className="price-row">
+                  <span className="label">Quantity</span>
+                  <span className="value">{quantity}</span>
+                </div>
+              )}
 
               <div className="price-row">
                 <span className="label">Subtotal</span>
@@ -370,7 +475,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                 onClick={handleContinue}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Processing...' : 'Continue'}
+                {isSubmitting ? 'Processing...' : `Continue (₹${totalAmount})`}
               </button>
             </div>
           </aside>

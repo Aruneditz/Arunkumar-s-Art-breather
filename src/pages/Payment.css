@@ -940,5 +940,197 @@ Payment Page Styles - Phase 9 (Bank Selection & Mobile Simulation)
   }
 }
 
+/* Multi-Item Summary Styles */
+.summary-multi-items-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.multi-items-heading {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.2px;
+}
+
+.multi-items-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.multi-item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem;
+  background: rgba(15, 17, 26, 0.4);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.multi-item-img-wrap {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #24293a 0%, #151824 100%);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.multi-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.2rem;
+}
+
+.multi-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.multi-item-title-line {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.multi-item-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-role-pill {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.08rem 0.35rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.item-role-pill.main {
+  background: rgba(245, 166, 35, 0.15);
+  color: var(--primary-color);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+}
+
+.item-role-pill.added {
+  background: rgba(140, 122, 230, 0.15);
+  color: var(--secondary-color);
+  border: 1px solid rgba(140, 122, 230, 0.3);
+}
+
+.multi-item-category {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.multi-item-cost {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Multi-Item Confirmation Screen */
+.confirmation-items-container {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.confirm-collection-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.confirm-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.confirm-item-mini-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(15, 17, 26, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+}
+
+.confirm-img-wrapper.mini {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #24293a 0%, #151824 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-item-mini-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.confirm-product-title.mini {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.confirm-product-meta.mini {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.meta-tag.main {
+  background: rgba(245, 166, 35, 0.15);
+  color: var(--primary-color);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+}
+
+.meta-tag.added {
+  background: rgba(140, 122, 230, 0.15);
+  color: var(--secondary-color);
+  border: 1px solid rgba(140, 122, 230, 0.3);
+}
+
+.confirm-item-mini-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
 
 

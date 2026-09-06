@@ -265,50 +265,184 @@ ProductCard Component Styles (Dark Artistic Theme)
 /* Responsive Design - Tablet */
 @media (max-width: 768px) {
   .product-info {
-    padding: 1rem 1rem 0.5rem;
+    padding: 0.85rem 0.85rem 0.45rem;
+    gap: 0.45rem;
   }
 
   .product-title {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.45rem;
   }
 
   .product-footer {
-    padding: 0.75rem 1rem 1rem;
+    padding: 0.65rem 0.85rem 0.85rem;
   }
 
   .amount {
-    font-size: 1.3rem;
-  }
-
-  .buy-now-btn {
-    padding: 0.55rem 0.95rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Responsive Design - Mobile */
-@media (max-width: 480px) {
-  .product-info {
-    padding: 0.85rem 0.85rem 0.5rem;
-    gap: 0.5rem;
-  }
-
-  .product-title {
-    font-size: 0.98rem;
-  }
-
-  .product-category {
-    font-size: 0.68rem;
-    padding: 0.15rem 0.5rem;
-  }
-
-  .amount {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
 
   .buy-now-btn {
     padding: 0.5rem 0.85rem;
     font-size: 0.82rem;
+  }
+}
+
+/* Responsive Design - Mobile (Compact 2-Column Balanced Cards) */
+@media (max-width: 640px) {
+  .product-card {
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Compact Artwork Image */
+  .product-image-container {
+    padding-bottom: 92%;
+  }
+
+  .product-image {
+    padding: 0.45rem;
+  }
+
+  /* Compact Wishlist Button */
+  .wishlist-btn {
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  /* Compact Info Layout */
+  .product-info {
+    padding: 0.55rem 0.55rem 0.35rem;
+    gap: 0.3rem;
+  }
+
+  .product-header {
+    gap: 0.25rem;
+  }
+
+  .product-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.05rem;
+  }
+
+  .product-category {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
+  }
+
+  .product-material {
+    font-size: 0.7rem;
+    padding: 0.1rem 0;
+    gap: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .material-label {
+    font-size: 0.68rem;
+  }
+
+  .material-value {
+    font-size: 0.68rem;
+  }
+
+  /* Hide inline toggle on compact mobile cards; tapping card opens Product Details */
+  .product-details-toggle,
+  .product-description-expanded {
+    display: none;
+  }
+
+  /* Mobile Footer: Clear Price + Thumb-friendly Tap Target */
+  .product-footer {
+    padding: 0.45rem 0.55rem 0.55rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    background-color: rgba(15, 17, 26, 0.45);
+  }
+
+  .product-price {
+    gap: 0.15rem;
+  }
+
+  .currency {
+    font-size: 0.82rem;
+  }
+
+  .amount {
+    font-size: 1.12rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .product-action-buttons {
+    width: 100%;
+  }
+
+  .buy-now-btn {
+    width: 100%;
+    padding: 0.45rem 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 6px;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.2px;
+  }
+}
+
+/* Small mobile devices (<= 360px) */
+@media (max-width: 360px) {
+  .product-info {
+    padding: 0.45rem 0.45rem 0.25rem;
+  }
+
+  .product-title {
+    font-size: 0.78rem;
+    min-height: 1.95rem;
+  }
+
+  .product-category {
+    font-size: 0.58rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .product-material {
+    font-size: 0.65rem;
+  }
+
+  .product-footer {
+    padding: 0.35rem 0.45rem 0.45rem;
+  }
+
+  .amount {
+    font-size: 1.02rem;
+  }
+
+  .buy-now-btn {
+    font-size: 0.74rem;
+    min-height: 33px;
   }
 }
 

@@ -39,7 +39,7 @@ ProductGrid Component Styles
 @media (max-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .product-grid-empty {
@@ -51,11 +51,11 @@ ProductGrid Component Styles
   }
 }
 
-/* Responsive Design - Mobile */
+/* Responsive Design - Mobile (2 Columns) */
 @media (max-width: 480px) {
   .product-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
   }
 
   .product-grid-empty {
@@ -64,5 +64,12 @@ ProductGrid Component Styles
 
   .empty-message {
     font-size: 0.95rem;
+  }
+}
+
+/* Small mobile devices (<= 360px) */
+@media (max-width: 360px) {
+  .product-grid {
+    gap: 0.5rem;
   }
 }

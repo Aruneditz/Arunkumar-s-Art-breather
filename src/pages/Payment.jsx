@@ -78,13 +78,14 @@ function Payment({ cartCount = 0 }) {
   }, [location, navigate]);
 
   // Extract order parameters safely
-  const isSingleProduct = !order?.items || order?.product;
-  const product = order?.product || (order?.items && order.items[0]);
-  const productName = order?.product?.title || 
-    (order?.items ? order.items.map(i => `${i.title} (x${i.quantity})`).join(', ') : 'Handmade Artwork');
+  const items = order?.items || (order?.product ? [{ ...order.product, quantity: order.quantity || 1, isMain: true }] : []);
+  const product = order?.product || (items.length > 0 ? items[0] : null);
+  const mainProduct = items.find(i => i.isMain) || product;
+  const productName = mainProduct?.title || 
+    (items.length > 0 ? items.map(i => `${i.title} (x${i.quantity || 1})`).join(', ') : 'Handmade Artwork');
 
   const quantity = order?.quantity || 
-    (order?.items ? order.items.reduce((total, i) => total + (i.quantity || 1), 0) : 1);
+    (items.length > 0 ? items.reduce((total, i) => total + (i.quantity || 1), 0) : 1);
 
   const subtotal = order?.pricing?.subtotal ?? order?.subtotal ?? (product?.price ? product.price * quantity : 0);
   const tax = order?.pricing?.tax ?? order?.tax ?? Math.round(subtotal * 0.05);
@@ -263,26 +264,55 @@ function Payment({ cartCount = 0 }) {
               <div className="order-summary-box">
                 <h3 className="summary-box-heading">Order & Payment Confirmation</h3>
 
-                {/* Product Detail in Confirmation */}
-                <div className="confirmation-product-row">
-                  {product?.image && (
-                    <div className="confirm-img-wrapper">
-                      <img
-                        src={`/${product.image}`}
-                        alt={confirmedOrder.productName}
-                        className="confirm-product-img"
-                      />
+                {/* Product Detail in Confirmation - Supports multiple items */}
+                {confirmedOrder.items && confirmedOrder.items.length > 1 ? (
+                  <div className="confirmation-items-container">
+                    <h4 className="confirm-collection-title">Purchased Artworks ({confirmedOrder.items.length})</h4>
+                    <div className="confirm-items-list">
+                      {confirmedOrder.items.map((item, idx) => (
+                        <div key={item.id || idx} className="confirm-item-mini-row">
+                          <div className="confirm-img-wrapper mini">
+                            <img
+                              src={`/${item.image}`}
+                              alt={item.title}
+                              className="confirm-product-img"
+                            />
+                          </div>
+                          <div className="confirm-item-mini-info">
+                            <h5 className="confirm-product-title mini">{item.title}</h5>
+                            <div className="confirm-product-meta mini">
+                              {item.isMain ? <span className="meta-tag main">Main Artwork</span> : <span className="meta-tag added">+ Added Art</span>}
+                              {item.category && <span className="meta-tag">{item.category}</span>}
+                            </div>
+                          </div>
+                          <div className="confirm-item-mini-price">
+                            ₹{item.price * (item.quantity || 1)}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  )}
-                  <div className="confirm-product-info">
-                    <h4 className="confirm-product-title">{confirmedOrder.productName}</h4>
-                    <p className="confirm-product-meta">
-                      {product?.category && <span className="meta-tag">{product.category}</span>}
-                      {product?.material && <span className="meta-tag">{product.material}</span>}
-                    </p>
-                    <p className="confirm-qty">Quantity: <strong>{confirmedOrder.quantity}</strong></p>
                   </div>
-                </div>
+                ) : (
+                  <div className="confirmation-product-row">
+                    {product?.image && (
+                      <div className="confirm-img-wrapper">
+                        <img
+                          src={`/${product.image}`}
+                          alt={confirmedOrder.productName}
+                          className="confirm-product-img"
+                        />
+                      </div>
+                    )}
+                    <div className="confirm-product-info">
+                      <h4 className="confirm-product-title">{confirmedOrder.productName}</h4>
+                      <p className="confirm-product-meta">
+                        {product?.category && <span className="meta-tag">{product.category}</span>}
+                        {product?.material && <span className="meta-tag">{product.material}</span>}
+                      </p>
+                      <p className="confirm-qty">Quantity: <strong>{confirmedOrder.quantity}</strong></p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Key Confirmation Details Table (Requirement 10) */}
                 <div className="confirmation-details-table">
@@ -486,8 +516,33 @@ function Payment({ cartCount = 0 }) {
             <div className="summary-card">
               <h3>Order Summary</h3>
 
-              {/* Product Preview */}
-              {product && (
+              {/* Product Preview - Multi-Item vs Single Item */}
+              {items.length > 1 ? (
+                <div className="summary-multi-items-card">
+                  <div className="multi-items-heading">Your Art Collection ({items.length})</div>
+                  <div className="multi-items-scroll">
+                    {items.map((item, idx) => (
+                      <div key={item.id || idx} className="multi-item-row">
+                        <div className="multi-item-img-wrap">
+                          <img src={`/${item.image}`} alt={item.title} className="multi-item-img" />
+                        </div>
+                        <div className="multi-item-info">
+                          <div className="multi-item-title-line">
+                            <span className="multi-item-name">{item.title}</span>
+                            {item.isMain ? (
+                              <span className="item-role-pill main">Main</span>
+                            ) : (
+                              <span className="item-role-pill added">+Added</span>
+                            )}
+                          </div>
+                          <span className="multi-item-category">{item.category}</span>
+                        </div>
+                        <span className="multi-item-cost">₹{item.price * (item.quantity || 1)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : product && (
                 <div className="summary-product-card">
                   {product.image && (
                     <div className="summary-product-image">
