@@ -46,19 +46,6 @@ Navbar Component Styles (Dark Artistic Theme)
   transform: translateY(-1px);
 }
 
-.brand-palette-img {
-  width: 32px;
-  height: 32px;
-  display: block;
-  filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.45));
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.navbar-brand:hover .brand-palette-img {
-  transform: rotate(-10deg) scale(1.1);
-}
-
 .brand-icon {
   font-size: 1.6rem;
   display: flex;

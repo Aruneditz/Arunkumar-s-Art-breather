@@ -45,12 +45,11 @@ ART BREATHER - Global Styles (Dark Artistic Theme)
   --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Typography & Base */
+/* Typography */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
   color-scheme: dark;
-  overflow-x: hidden;
 }
 
 body {
@@ -61,7 +60,6 @@ body {
   background-color: var(--bg-primary);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -24,8 +24,8 @@ function Footer() {
           {/* Brand Section */}
           <div className="footer-section">
             <h3 className="footer-brand">
-              <img src="/palette.svg" alt="Palette Logo" className="footer-palette-img" />
-              <span>ART BREATHER</span>
+              <span className="footer-icon">🎨</span>
+              ART BREATHER
             </h3>
             <p className="footer-tagline">
               Handmade Art. A Breath of Creativity.

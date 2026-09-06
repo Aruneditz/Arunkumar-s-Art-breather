@@ -459,13 +459,13 @@ function Payment({ cartCount = 0 }) {
                   </div>
                 )}
 
-                {/* Place Order Button (Priority 4) */}
+                {/* Confirm Demo Payment Button (Requirement 5) */}
                 <button
                   type="submit"
                   className="btn btn-primary pay-btn"
                   disabled={isProcessing}
                 >
-                  {isProcessing ? '⏳ Processing Order...' : `Place Order (₹${totalAmount})`}
+                  {isProcessing ? '⏳ Processing Payment...' : `Confirm Demo Payment (₹${totalAmount})`}
                 </button>
 
                 {/* Back Button */}
@@ -481,7 +481,7 @@ function Payment({ cartCount = 0 }) {
             </div>
           </div>
 
-          {/* Right Column: Complete Order Summary (Requirement 3 & 8) & Contact Support */}
+          {/* Right Column: Complete Order Summary (Requirement 3 & 8) */}
           <aside className="payment-summary">
             <div className="summary-card">
               <h3>Order Summary</h3>
@@ -570,59 +570,6 @@ function Payment({ cartCount = 0 }) {
                   <li>No PIN, OTP, or passwords collected</li>
                   <li>Simulated instant order confirmation</li>
                 </ul>
-              </div>
-            </div>
-
-            {/* Contact & Social Section (Priority 5) */}
-            <div className="contact-social-card">
-              <div className="contact-card-header">
-                <span className="contact-badge-icon">🎨</span>
-                <div className="contact-header-text">
-                  <h4>Artist & Store Contact</h4>
-                  <p>Reach out directly for custom commissions or support:</p>
-                </div>
-              </div>
-
-              <div className="contact-social-grid">
-                {/* Phone */}
-                <a href="tel:8438940851" className="contact-social-item phone-link" title="Call 8438940851">
-                  <div className="contact-icon-bubble phone-icon">📞</div>
-                  <div className="contact-item-info">
-                    <span className="contact-type-label">CONTACT</span>
-                    <span className="contact-data-value">8438940851</span>
-                  </div>
-                  <span className="contact-arrow">↗</span>
-                </a>
-
-                {/* Email */}
-                <a href="mailto:arunkumarpalanivel1183@gmail.com" className="contact-social-item email-link" title="Send Email">
-                  <div className="contact-icon-bubble email-icon">✉️</div>
-                  <div className="contact-item-info">
-                    <span className="contact-type-label">EMAIL</span>
-                    <span className="contact-data-value">arunkumarpalanivel1183@gmail.com</span>
-                  </div>
-                  <span className="contact-arrow">↗</span>
-                </a>
-
-                {/* WhatsApp */}
-                <a href="https://wa.me/918438940851" target="_blank" rel="noopener noreferrer" className="contact-social-item whatsapp-link" title="WhatsApp 8438940851">
-                  <div className="contact-icon-bubble whatsapp-icon">💬</div>
-                  <div className="contact-item-info">
-                    <span className="contact-type-label">WHATSAPP</span>
-                    <span className="contact-data-value">8438940851</span>
-                  </div>
-                  <span className="contact-arrow">↗</span>
-                </a>
-
-                {/* Instagram */}
-                <a href="https://www.instagram.com/past_breather._/" target="_blank" rel="noopener noreferrer" className="contact-social-item instagram-link" title="Instagram past_breather._">
-                  <div className="contact-icon-bubble instagram-icon">📸</div>
-                  <div className="contact-item-info">
-                    <span className="contact-type-label">INSTAGRAM</span>
-                    <span className="contact-data-value">past_breather._</span>
-                  </div>
-                  <span className="contact-arrow">↗</span>
-                </a>
               </div>
             </div>
           </aside>

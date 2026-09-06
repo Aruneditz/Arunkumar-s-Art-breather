@@ -69,9 +69,9 @@ function Navbar({ cartCount = 0 }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo Section with Painting Palette Logo (Priority 6) */}
+        {/* Logo Section */}
         <Link to="/" className="navbar-brand">
-          <img src="/palette.svg" alt="Palette Logo" className="brand-palette-img" />
+          <span className="brand-icon">🎨</span>
           <span className="brand-text">ART BREATHER</span>
         </Link>
 
