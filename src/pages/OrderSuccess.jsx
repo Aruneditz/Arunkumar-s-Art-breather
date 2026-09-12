@@ -280,7 +280,10 @@ function OrderSuccess({ cartCount = 0 }) {
             Track your order via email or return to explore more creations.
           </p>
           <div className="cta-buttons">
-            <button className="btn btn-primary" onClick={() => navigate('/shop')}>
+            <button className="btn btn-primary" onClick={() => navigate('/ordered-details')}>
+              📦 View My Orders & Tracker
+            </button>
+            <button className="btn btn-secondary" onClick={() => navigate('/shop')}>
               Continue Shopping
             </button>
             <button className="btn btn-outline" onClick={() => navigate('/')}>

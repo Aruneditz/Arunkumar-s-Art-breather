@@ -119,3 +119,114 @@ Shop Page Styles
     font-size: 0.85rem;
   }
 }
+
+/* ART BREATHER Custom Dark-Themed Pagination */
+.artbreather-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 3rem auto 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(20, 24, 38, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 40px;
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  flex-wrap: wrap;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  padding: 0.6rem 1.1rem;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  user-select: none;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: rgba(245, 166, 35, 0.12);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.25);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.pagination-number {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.pagination-number:hover:not(.active) {
+  background: rgba(245, 166, 35, 0.12);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.pagination-number.active {
+  background: var(--primary-color);
+  color: #0b0d14;
+  border-color: var(--primary-color);
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(245, 166, 35, 0.5);
+  transform: scale(1.06);
+}
+
+@media (max-width: 480px) {
+  .artbreather-pagination {
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 25px;
+  }
+
+  .pagination-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+    min-height: 36px;
+  }
+
+  .pagination-number {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 0.85rem;
+  }
+}

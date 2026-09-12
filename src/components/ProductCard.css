@@ -26,7 +26,7 @@ ProductCard Component Styles (Dark Artistic Theme)
 }
 
 /* Product Image Container */
-.product-image-container {
+.product-card .product-image-container {
   position: relative;
   width: 100%;
   padding-bottom: 90%;
@@ -35,7 +35,7 @@ ProductCard Component Styles (Dark Artistic Theme)
   border-bottom: 1px solid var(--border-color);
 }
 
-.product-image {
+.product-card .product-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -301,11 +301,11 @@ ProductCard Component Styles (Dark Artistic Theme)
   }
 
   /* Compact Artwork Image */
-  .product-image-container {
+  .product-card .product-image-container {
     padding-bottom: 92%;
   }
 
-  .product-image {
+  .product-card .product-image {
     padding: 0.45rem;
   }
 

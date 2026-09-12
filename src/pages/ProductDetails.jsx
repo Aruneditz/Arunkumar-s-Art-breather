@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,7 +10,7 @@ import './ProductDetails.css';
  * ProductDetails Page Component
  * 
  * Displays detailed information for a single product:
- * - Large product image
+ * - Multi-image interactive gallery with swipe, arrows, and dot indicators
  * - Product title, category, price, description
  * - Material information
  * - Availability status
@@ -18,6 +19,8 @@ import './ProductDetails.css';
  * - Add to Cart and Buy Now buttons
  * 
  * React Concepts Used:
+ * - useState: For multi-image gallery active index and touch coordinates
+ * - useEffect: To reset gallery index on product route change
  * - useParams: From React Router to get product ID from URL
  * - useNavigate: For navigation between pages
  * - find(): To search for specific product
@@ -31,6 +34,21 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
   
   // Find the current product
   const product = products.find(p => p.id === parseInt(id));
+
+  // Multi-image gallery state
+  const galleryImages = (product?.images && product.images.length > 0) 
+    ? product.images 
+    : (product ? [product.image] : []);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Touch swipe state for mobile gallery navigation
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+
+  // Reset to first image whenever product ID changes
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [id]);
 
   // If product not found, show 404 message
   if (!product) {
@@ -77,6 +95,42 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
     navigate('/buy-now', { state: { product } });
   };
 
+  // Gallery Navigation Handlers
+  const handlePrevImage = (e) => {
+    if (e) e.stopPropagation();
+    setActiveImageIndex(prev => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e) => {
+    if (e) e.stopPropagation();
+    setActiveImageIndex(prev => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Touch Swipe Handlers (min distance 40px)
+  const minSwipeDistance = 40;
+  const handleTouchStart = (e) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    if (distance < -minSwipeDistance) {
+      // Swiped Right -> move to next image as specified
+      handleNextImage();
+    } else if (distance > minSwipeDistance) {
+      // Swiped Left -> move to previous image as specified
+      handlePrevImage();
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   return (
     <div className="product-details-page">
       <Navbar cartCount={cartCount} />
@@ -85,13 +139,78 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
       <section className="product-details">
         <div className="container">
           <div className="product-details-grid">
-            {/* Left: Product Image */}
-            <div className="product-details-image">
-              <img
-                src={`/${product.image}`}
-                alt={product.title}
-                className="details-image"
-              />
+            {/* Left: Product Image Column with Multi-Image Gallery */}
+            <div className="product-details-image-col">
+              <div 
+                className="product-details-image"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <img
+                  src={`/${galleryImages[activeImageIndex] || product.image}`}
+                  alt={`${product.title} - View ${activeImageIndex + 1}`}
+                  className="details-image"
+                />
+
+                {galleryImages.length > 1 && (
+                  <>
+                    {/* Previous Button */}
+                    <button
+                      type="button"
+                      className="gallery-arrow-btn prev-btn"
+                      onClick={handlePrevImage}
+                      aria-label="Previous image"
+                      title="Previous artwork image"
+                    >
+                      ‹
+                    </button>
+
+                    {/* Next Button */}
+                    <button
+                      type="button"
+                      className="gallery-arrow-btn next-btn"
+                      onClick={handleNextImage}
+                      aria-label="Next image"
+                      title="Next artwork image"
+                    >
+                      ›
+                    </button>
+
+                    {/* Active Dot Indicators */}
+                    <div className="gallery-dots" role="tablist" aria-label="Artwork view indicators">
+                      {galleryImages.map((_, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          className={`gallery-dot ${idx === activeImageIndex ? 'active' : ''}`}
+                          onClick={() => setActiveImageIndex(idx)}
+                          aria-label={`Show artwork view ${idx + 1}`}
+                          role="tab"
+                          aria-selected={idx === activeImageIndex}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Gallery Thumbnails Strip */}
+              {galleryImages.length > 1 && (
+                <div className="gallery-thumbnails" aria-label="Artwork thumbnails">
+                  {galleryImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`gallery-thumb-btn ${idx === activeImageIndex ? 'active' : ''}`}
+                      onClick={() => setActiveImageIndex(idx)}
+                      aria-label={`View image ${idx + 1}`}
+                    >
+                      <img src={`/${img}`} alt={`${product.title} view ${idx + 1}`} />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Right: Product Information */}
@@ -104,7 +223,7 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
               {/* Price Section */}
               <div className="price-section">
                 <span className="currency">₹</span>
-                <span className="price-amount">{product.price}</span>
+                <span className="price-amount">{product.price.toLocaleString('en-IN')}</span>
                 <span className="availability available">In Stock</span>
               </div>
 
@@ -176,7 +295,7 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
               </div>
               <div className="detail-box">
                 <h4>Price</h4>
-                <p>₹{product.price}</p>
+                <p>₹{product.price.toLocaleString('en-IN')}</p>
               </div>
             </div>
           </div>

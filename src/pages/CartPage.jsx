@@ -48,17 +48,49 @@ function CartPage({ cartItems = [], cartCount = 0, onUpdateQuantity, onRemove, o
             ) : (
               cartItems.map((item) => (
                 <div key={item.id} className="cart-item">
-                  <div className="cart-item-image-wrap">
+                  <div 
+                    className="cart-item-image-wrap clickable"
+                    onClick={() => navigate(`/product/${item.id}`)}
+                    title={`View ${item.title} details`}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        navigate(`/product/${item.id}`);
+                      }
+                    }}
+                  >
                     <img src={`/${item.image}`} alt={item.title} className="cart-item-image" />
                   </div>
 
                   <div className="cart-item-info">
                     <div className="cart-item-header">
                       <div>
-                        <h3>{item.title}</h3>
+                        <h3 
+                          className="cart-item-title clickable"
+                          onClick={() => navigate(`/product/${item.id}`)}
+                          title={`View ${item.title} details`}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              navigate(`/product/${item.id}`);
+                            }
+                          }}
+                        >
+                          {item.title}
+                        </h3>
                         <span className="cart-item-category">{item.category}</span>
                       </div>
-                      <button className="remove-item-btn" onClick={() => onRemove(item.id)}>
+                      <button 
+                        className="remove-item-btn" 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onRemove(item.id);
+                        }}
+                      >
                         Remove
                       </button>
                     </div>
@@ -68,13 +100,13 @@ function CartPage({ cartItems = [], cartCount = 0, onUpdateQuantity, onRemove, o
                     </div>
 
                     <div className="cart-item-footer">
-                      <div className="quantity-control">
+                      <div className="quantity-control" onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => onUpdateQuantity(item.id, -1)}>-</button>
                         <span>{item.quantity}</span>
                         <button onClick={() => onUpdateQuantity(item.id, 1)}>+</button>
                       </div>
 
-                      <div className="cart-item-price">₹{item.price * item.quantity}</div>
+                      <div className="cart-item-price">₹{(item.price * item.quantity).toLocaleString('en-IN')}</div>
                     </div>
                   </div>
                 </div>
@@ -87,17 +119,17 @@ function CartPage({ cartItems = [], cartCount = 0, onUpdateQuantity, onRemove, o
 
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>₹{subtotal}</span>
+              <span>₹{subtotal.toLocaleString('en-IN')}</span>
             </div>
 
             <div className="summary-row">
               <span>Shipping</span>
-              <span>₹{shipping}</span>
+              <span>₹{shipping.toLocaleString('en-IN')}</span>
             </div>
 
             <div className="summary-row total-row">
               <span>Total</span>
-              <span>₹{total}</span>
+              <span>₹{total.toLocaleString('en-IN')}</span>
             </div>
 
             <button

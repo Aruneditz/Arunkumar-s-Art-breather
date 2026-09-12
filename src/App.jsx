@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Account from './pages/Account';
 import BuyNowCheckout from './pages/BuyNowCheckout';
 import Payment from './pages/Payment';
+import OrderedDetails from './pages/OrderedDetails';
 import NotFound from './pages/NotFound';
 import './App.css';
 
@@ -234,6 +235,20 @@ function App() {
             <Route
               path="/payment"
               element={<Payment cartCount={cartCount} />}
+            />
+            
+            {/* Ordered Details & Tracking Routes */}
+            <Route
+              path="/ordered-details"
+              element={<OrderedDetails cartCount={cartCount} />}
+            />
+            <Route
+              path="/my-orders"
+              element={<OrderedDetails cartCount={cartCount} />}
+            />
+            <Route
+              path="/orders"
+              element={<OrderedDetails cartCount={cartCount} />}
             />
             
             <Route path="*" element={<NotFound />} />

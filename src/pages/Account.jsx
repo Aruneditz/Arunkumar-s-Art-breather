@@ -76,8 +76,28 @@ function Account({ cartCount = 0 }) {
     );
   }
 
-  const orderCount = 0; // Placeholder - would come from backend
-  const wishlistCount = 0; // Placeholder - would come from wishlist state
+  let orderCount = 0;
+  try {
+    const storedOrders = localStorage.getItem('artBreatherOrders');
+    if (storedOrders) {
+      orderCount = JSON.parse(storedOrders).length;
+    } else {
+      const lastOrder = localStorage.getItem('lastOrder');
+      if (lastOrder) orderCount = 1;
+    }
+  } catch (e) {
+    orderCount = 0;
+  }
+
+  let wishlistCount = 0;
+  try {
+    const storedWishlist = localStorage.getItem('artBreatherWishlist');
+    if (storedWishlist) {
+      wishlistCount = JSON.parse(storedWishlist).length;
+    }
+  } catch (e) {
+    wishlistCount = 0;
+  }
 
   return (
     <div className="account-page">
@@ -144,17 +164,27 @@ function Account({ cartCount = 0 }) {
             <div className="account-card">
               <h2>Account Summary</h2>
               <div className="stats-grid">
-                <div className="stat-item">
+                <div 
+                  className="stat-item" 
+                  onClick={() => navigate('/ordered-details')}
+                  style={{ cursor: 'pointer' }}
+                  title="View your orders and arrival details"
+                >
                   <div className="stat-icon">📦</div>
                   <div className="stat-info">
-                    <p className="stat-label">Orders</p>
+                    <p className="stat-label">Orders ↗</p>
                     <p className="stat-value">{orderCount}</p>
                   </div>
                 </div>
-                <div className="stat-item">
+                <div 
+                  className="stat-item"
+                  onClick={() => navigate('/wishlist')}
+                  style={{ cursor: 'pointer' }}
+                  title="View your saved artworks"
+                >
                   <div className="stat-icon">❤️</div>
                   <div className="stat-info">
-                    <p className="stat-label">Wishlist Items</p>
+                    <p className="stat-label">Wishlist ↗</p>
                     <p className="stat-value">{wishlistCount}</p>
                   </div>
                 </div>
@@ -172,6 +202,10 @@ function Account({ cartCount = 0 }) {
             <div className="account-card">
               <h2>Quick Actions</h2>
               <div className="actions-grid">
+                <button className="action-btn" onClick={() => navigate('/ordered-details')}>
+                  <span className="action-icon">📦</span>
+                  <span className="action-text">View Orders</span>
+                </button>
                 <button className="action-btn" onClick={() => navigate('/wishlist')}>
                   <span className="action-icon">❤️</span>
                   <span className="action-text">View Wishlist</span>
@@ -179,10 +213,6 @@ function Account({ cartCount = 0 }) {
                 <button className="action-btn" onClick={() => navigate('/shop')}>
                   <span className="action-icon">🛒</span>
                   <span className="action-text">Continue Shopping</span>
-                </button>
-                <button className="action-btn" onClick={() => alert('Coming soon!')}>
-                  <span className="action-icon">🔐</span>
-                  <span className="action-text">Change Password</span>
                 </button>
                 <button className="action-btn logout-btn" onClick={handleLogout}>
                   <span className="action-icon">👋</span>

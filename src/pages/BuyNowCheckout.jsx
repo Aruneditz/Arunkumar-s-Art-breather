@@ -122,9 +122,9 @@ function BuyNowCheckout({ cartCount = 0 }) {
     });
   };
 
-  // Curated companion artworks (excluding current main product)
+  // Curated companion artworks (excluding current main product - exactly 2 products)
   const suggestedArtworks = product 
-    ? products.filter(p => p.id !== product.id)
+    ? products.filter(p => p.id !== product.id).slice(0, 2)
     : [];
 
   // Dynamic Price calculations
@@ -219,19 +219,19 @@ function BuyNowCheckout({ cartCount = 0 }) {
           {/* Left: Product & Form */}
           <div className="checkout-main">
             {/* Product Details Card */}
-            <div className="checkout-card product-card">
+            <div className="checkout-card buynow-product-card">
               <h2>Product Details</h2>
               
               <div className="product-display">
-                <div className="product-image-wrapper">
+                <div className="buynow-image-wrapper">
                   <img 
                     src={`/${product.image}`} 
                     alt={product.title}
-                    className="product-image"
+                    className="buynow-product-image"
                   />
                 </div>
 
-                <div className="product-details-info">
+                <div className="buynow-details-info">
                   <h3 className="product-name">{product.title}</h3>
                   <p className="product-category">{product.category}</p>
                   <p className="product-material">
@@ -241,7 +241,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                   
                   <div className="price-per-unit">
                     <span className="label">Price per unit:</span>
-                    <span className="price">₹{product.price}</span>
+                    <span className="price">₹{product.price.toLocaleString('en-IN')}</span>
                   </div>
 
                   {/* Quantity Selector */}
@@ -308,7 +308,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                           <span className="suggested-art-cat">{art.category}</span>
                         </div>
                         <div className="suggested-art-action">
-                          <span className="suggested-art-price">₹{art.price}</span>
+                          <span className="suggested-art-price">₹{art.price.toLocaleString('en-IN')}</span>
                           <button
                             type="button"
                             className={`art-select-toggle-btn ${isSelected ? 'active' : ''}`}
@@ -399,7 +399,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                   className="btn btn-primary continue-btn"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Processing...' : `Continue (₹${totalAmount})`}
+                  {isSubmitting ? 'Processing...' : `Continue (₹${totalAmount.toLocaleString('en-IN')})`}
                 </button>
               </form>
             </div>
@@ -415,7 +415,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                 <span className="label">
                   <strong className="main-art-badge">Main</strong> {product.title}
                 </span>
-                <span className="value">₹{mainSubtotal}</span>
+                <span className="value">₹{mainSubtotal.toLocaleString('en-IN')}</span>
               </div>
 
               {/* Additional Selected Artworks */}
@@ -424,7 +424,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                   <span className="label">
                     <span className="plus-symbol">+</span> {art.title}
                   </span>
-                  <span className="value">₹{art.price}</span>
+                  <span className="value">₹{art.price.toLocaleString('en-IN')}</span>
                 </div>
               ))}
 
@@ -438,29 +438,29 @@ function BuyNowCheckout({ cartCount = 0 }) {
 
               <div className="price-row">
                 <span className="label">Subtotal</span>
-                <span className="value">₹{subtotal}</span>
+                <span className="value">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="price-row tax-row">
                 <span className="label">Tax (5%)</span>
-                <span className="value">₹{tax}</span>
+                <span className="value">₹{tax.toLocaleString('en-IN')}</span>
               </div>
 
               {discount > 0 && (
                 <div className="price-row discount-row">
                   <span className="label">Discount</span>
-                  <span className="value discount">−₹{discount}</span>
+                  <span className="value discount">−₹{discount.toLocaleString('en-IN')}</span>
                 </div>
               )}
 
               <div className="price-row delivery-row">
                 <span className="label">Delivery Fee</span>
-                <span className="value">₹{deliveryFee}</span>
+                <span className="value">₹{deliveryFee.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="price-row total-row">
                 <span className="label total-label">Total Amount</span>
-                <span className="value total-value">₹{totalAmount}</span>
+                <span className="value total-value">₹{totalAmount.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="price-summary-note">
@@ -475,7 +475,7 @@ function BuyNowCheckout({ cartCount = 0 }) {
                 onClick={handleContinue}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Processing...' : `Continue (₹${totalAmount})`}
+                {isSubmitting ? 'Processing...' : `Continue (₹${totalAmount.toLocaleString('en-IN')})`}
               </button>
             </div>
           </aside>

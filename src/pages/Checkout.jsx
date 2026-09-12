@@ -487,7 +487,7 @@ function Checkout({ cartItems = [], cartCount = 0, onCheckout }) {
                       <p className="item-name">{item.title}</p>
                       <p className="item-qty">Qty: {item.quantity}</p>
                     </div>
-                    <p className="item-price">₹{item.price * item.quantity}</p>
+                    <p className="item-price">₹{(item.price * item.quantity).toLocaleString('en-IN')}</p>
                   </div>
                 ))}
               </div>
@@ -496,15 +496,15 @@ function Checkout({ cartItems = [], cartCount = 0, onCheckout }) {
               <div className="summary-totals">
                 <div className="total-row">
                   <span>Subtotal</span>
-                  <span>₹{subtotal}</span>
+                  <span>₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="total-row">
                   <span>Shipping</span>
-                  <span>₹{shipping}</span>
+                  <span>₹{shipping.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="total-row total">
                   <span>Total</span>
-                  <span>₹{total}</span>
+                  <span>₹{total.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 

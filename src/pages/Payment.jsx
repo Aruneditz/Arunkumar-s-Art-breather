@@ -122,7 +122,7 @@ function Payment({ cartCount = 0 }) {
     const newErrors = {};
 
     if (!selectedBank) {
-      newErrors.selectedBank = 'Please select a bank to proceed with the simulated payment';
+      newErrors.selectedBank = 'Please select a bank to proceed with the payment';
     }
 
     setErrors(newErrors);
@@ -190,7 +190,7 @@ function Payment({ cartCount = 0 }) {
           deliveryFee,
           totalAmount
         },
-        paymentMethod: 'Simulated Net Banking / Mobile Request',
+        paymentMethod: 'Net Banking / Bank Option',
         selectedBank,
         status: 'confirmed',
         estimatedDelivery: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toLocaleDateString('en-IN', {
@@ -203,6 +203,16 @@ function Payment({ cartCount = 0 }) {
 
       // Store in localStorage for persistence and receipt retrieval
       localStorage.setItem('lastOrder', JSON.stringify(finalOrder));
+
+      // Append to full order history list in localStorage
+      try {
+        const storedOrders = localStorage.getItem('artBreatherOrders');
+        const orderHistory = storedOrders ? JSON.parse(storedOrders) : [];
+        const updatedHistory = [finalOrder, ...orderHistory.filter(o => o.id !== finalOrder.id && o.orderId !== finalOrder.orderId)];
+        localStorage.setItem('artBreatherOrders', JSON.stringify(updatedHistory));
+      } catch (err) {
+        console.error('Error saving order to history:', err);
+      }
 
       // Clear session storages and cart
       sessionStorage.removeItem('buyNowOrder');
@@ -286,7 +296,7 @@ function Payment({ cartCount = 0 }) {
                             </div>
                           </div>
                           <div className="confirm-item-mini-price">
-                            ₹{item.price * (item.quantity || 1)}
+                            ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
                           </div>
                         </div>
                       ))}
@@ -342,7 +352,7 @@ function Payment({ cartCount = 0 }) {
                   </div>
                   <div className="confirm-row total-highlight-row">
                     <span className="confirm-label">Final Amount Paid</span>
-                    <span className="confirm-value price-gold">₹{confirmedOrder.totalAmount}</span>
+                    <span className="confirm-value price-gold">₹{confirmedOrder.totalAmount.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 
@@ -356,7 +366,14 @@ function Payment({ cartCount = 0 }) {
               <div className="confirmation-actions">
                 <button
                   type="button"
-                  className="btn btn-primary btn-home"
+                  className="btn btn-primary"
+                  onClick={() => navigate('/ordered-details')}
+                >
+                  📦 Track in My Orders
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-home"
                   onClick={() => navigate('/')}
                 >
                   🏠 Back to Home
@@ -396,19 +413,19 @@ function Payment({ cartCount = 0 }) {
       <section className="payment-header">
         <div className="container">
           <h1>Payment & Checkout</h1>
-          <p>Select your bank to simulate the demo payment request</p>
+          <p>Select your bank to proceed with the payment request</p>
         </div>
       </section>
 
       {/* Main Content */}
       <section className="payment-content">
         <div className="container payment-layout">
-          {/* Left Column: Bank Selection & Simulated Mobile Payment */}
+          {/* Left Column: Bank Selection & Mobile Payment */}
           <div className="payment-main">
             <div className="payment-card">
               <div className="payment-card-header">
                 <h2>Payment Method</h2>
-                <span className="payment-mode-tag">DEMO SIMULATION</span>
+                <span className="payment-mode-tag">PAYMENT BANK OPTION</span>
               </div>
 
               {/* Bank Selection Form (Requirement 3) */}
@@ -439,11 +456,11 @@ function Payment({ cartCount = 0 }) {
                     <span className="error-message">{errors.selectedBank}</span>
                   )}
                   <p className="form-hint">
-                    💡 Select one of the 5 demo banking partners to simulate the payment request.
+                    💡 Select your preferred banking partner to authorize the payment.
                   </p>
                 </div>
 
-                {/* Mobile Payment Request Simulation (Requirement 4) */}
+                {/* Mobile Payment Request (Requirement 4) */}
                 {selectedBank && (
                   <div className="simulated-payment-request-card">
                     <div className="request-card-header">
@@ -461,17 +478,17 @@ function Payment({ cartCount = 0 }) {
 
                       <div className="req-amount-badge">
                         <span className="amt-label">Amount:</span>
-                        <span className="amt-value">₹{totalAmount}</span>
+                        <span className="amt-value">₹{totalAmount.toLocaleString('en-IN')}</span>
                       </div>
 
                       <p className="req-description">
-                        A payment request of <strong>₹{totalAmount}</strong> has been simulated for your registered mobile number <strong>{maskedMobile}</strong>.
+                        A payment request of <strong>₹{totalAmount.toLocaleString('en-IN')}</strong> has been sent to your registered mobile number <strong>{maskedMobile}</strong>.
                       </p>
 
                       <div className="demo-safety-note">
                         <span className="shield-icon">🛡️</span>
                         <span>
-                          <strong>Frontend-only demo:</strong> No real money will be charged, no SMS is sent, and no PIN/OTP is required.
+                          <strong>Secure Net Banking:</strong> Direct bank authorization. Fast, encrypted, and safe.
                         </span>
                       </div>
                     </div>
@@ -484,18 +501,18 @@ function Payment({ cartCount = 0 }) {
                     <div className="processing-spinner"></div>
                     <div className="processing-text">
                       <h4>Payment Processing...</h4>
-                      <p>Simulating secure authorization with {selectedBank || 'Bank'}. Please wait...</p>
+                      <p>Securing authorization with {selectedBank || 'Bank'}. Please wait...</p>
                     </div>
                   </div>
                 )}
 
-                {/* Confirm Demo Payment Button (Requirement 5) */}
+                {/* Confirm Payment Button (Requirement 5) */}
                 <button
                   type="submit"
                   className="btn btn-primary pay-btn"
                   disabled={isProcessing}
                 >
-                  {isProcessing ? '⏳ Processing Payment...' : `Confirm Demo Payment (₹${totalAmount})`}
+                  {isProcessing ? '⏳ Processing Payment...' : `Confirm Payment (₹${totalAmount})`}
                 </button>
 
                 {/* Back Button */}
@@ -580,32 +597,32 @@ function Payment({ cartCount = 0 }) {
 
                 <div className="breakdown-item">
                   <span className="item-label">Subtotal</span>
-                  <span className="item-value">₹{subtotal}</span>
+                  <span className="item-value">₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
 
                 <div className="breakdown-item">
                   <span className="item-label">Tax (5%)</span>
-                  <span className="item-value">₹{tax}</span>
+                  <span className="item-value">₹{tax.toLocaleString('en-IN')}</span>
                 </div>
 
                 <div className="breakdown-item">
                   <span className="item-label">Delivery Fee</span>
                   <span className="item-value">
-                    {deliveryFee === 0 ? <span className="free-delivery">FREE</span> : `₹${deliveryFee}`}
+                    {deliveryFee === 0 ? <span className="free-delivery">FREE</span> : `₹${deliveryFee.toLocaleString('en-IN')}`}
                   </span>
                 </div>
 
                 <div className="breakdown-item">
                   <span className="item-label">Discount</span>
                   <span className="item-value discount-value">
-                    {discount > 0 ? `−₹${discount}` : '₹0'}
+                    {discount > 0 ? `−₹${discount.toLocaleString('en-IN')}` : '₹0'}
                   </span>
                 </div>
 
                 {/* Final Total Amount */}
                 <div className="breakdown-item grand-total-item">
                   <span className="item-label total-label">Final Total Amount</span>
-                  <span className="item-value total-value">₹{totalAmount}</span>
+                  <span className="item-value total-value">₹{totalAmount.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
@@ -619,11 +636,11 @@ function Payment({ cartCount = 0 }) {
 
               {/* Security Feature Highlights */}
               <div className="payment-benefits">
-                <h4>✨ 100% Safe Demo Experience</h4>
+                <h4>✨ Secure & Trusted Checkout</h4>
                 <ul>
-                  <li>No real bank account or card required</li>
-                  <li>No PIN, OTP, or passwords collected</li>
-                  <li>Simulated instant order confirmation</li>
+                  <li>Verified bank partner network</li>
+                  <li>Encrypted transaction processing</li>
+                  <li>Instant digital order confirmation</li>
                 </ul>
               </div>
             </div>

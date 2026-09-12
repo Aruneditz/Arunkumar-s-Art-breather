@@ -119,6 +119,13 @@ function Navbar({ cartCount = 0 }) {
               <span className="cart-badge">{cartCount}</span>
             )}
           </Link>
+          <Link 
+            to="/ordered-details" 
+            className="nav-link"
+            onClick={closeMobileMenu}
+          >
+            Orders
+          </Link>
         </div>
 
         {/* Right Section - Search and Login/Profile */}
