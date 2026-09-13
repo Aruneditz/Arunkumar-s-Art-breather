@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { HeartIcon, ChevronDownIcon, ChevronUpIcon, ZapIcon } from './Icons';
 import './ProductCard.css';
 
 /**
@@ -74,7 +75,7 @@ function ProductCard({ product, onAddToCart, onBuyNow }) {
           title={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
           aria-label="Toggle wishlist"
         >
-          {isInWishlist ? '❤️' : '🤍'}
+          <HeartIcon size={18} filled={isInWishlist} />
         </button>
       </div>
 
@@ -95,7 +96,8 @@ function ProductCard({ product, onAddToCart, onBuyNow }) {
           className="product-details-toggle"
           onClick={handleDetailsToggle}
         >
-          {isDescriptionExpanded ? '▼ Hide Details' : '▶ Product Details'}
+          <span>{isDescriptionExpanded ? 'Hide Details' : 'Product Details'}</span>
+          {isDescriptionExpanded ? <ChevronUpIcon size={14} /> : <ChevronDownIcon size={14} />}
         </button>
 
         {/* Expandable Description */}
@@ -122,7 +124,8 @@ function ProductCard({ product, onAddToCart, onBuyNow }) {
             onClick={handleBuyNow}
             title="Buy Now"
           >
-            ⚡ Buy Now
+            <ZapIcon size={16} />
+            <span>Buy Now</span>
           </button>
         </div>
       </div>

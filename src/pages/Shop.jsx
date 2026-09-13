@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
 import ProductGrid from '../components/ProductGrid';
+import { ChevronLeftIcon, ChevronRightIcon } from '../components/Icons';
 import products from '../data/products';
 import './Shop.css';
 
@@ -188,7 +189,8 @@ function Shop({ onAddToCart, cartCount = 0 }) {
                 aria-label="Previous Page"
                 title="Go to previous page"
               >
-                ‹ Previous
+                <ChevronLeftIcon size={16} />
+                <span>Previous</span>
               </button>
 
               <div className="pagination-pages">
@@ -220,7 +222,8 @@ function Shop({ onAddToCart, cartCount = 0 }) {
                 aria-label="Next Page"
                 title="Go to next page"
               >
-                Next ›
+                <span>Next</span>
+                <ChevronRightIcon size={16} />
               </button>
             </div>
           )}

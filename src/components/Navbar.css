@@ -165,6 +165,9 @@ Navbar Component Styles (Dark Artistic Theme)
 }
 
 .search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   font-size: 1.1rem;
@@ -199,6 +202,9 @@ Navbar Component Styles (Dark Artistic Theme)
 }
 
 .login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   color: var(--text-primary);
@@ -222,6 +228,9 @@ Navbar Component Styles (Dark Artistic Theme)
 }
 
 .user-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   background: var(--bg-card);

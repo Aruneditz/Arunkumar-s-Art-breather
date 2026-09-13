@@ -243,6 +243,10 @@ ProductCard Component Styles (Dark Artistic Theme)
 }
 
 .buy-now-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   padding: 0.65rem 1.15rem;
   font-size: 0.9rem;
   font-weight: 700;

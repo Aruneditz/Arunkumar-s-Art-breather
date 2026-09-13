@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { 
+  PackageIcon, 
+  PaletteIcon, 
+  SparklesIcon, 
+  CalendarIcon, 
+  TruckIcon, 
+  CheckIcon, 
+  ClockIcon, 
+  ChevronDownIcon, 
+  ChevronUpIcon, 
+  ExternalLinkIcon 
+} from '../components/Icons';
 import './OrderedDetails.css';
 
 /**
@@ -165,7 +177,10 @@ function OrderedDetails({ cartCount = 0 }) {
             <span className="breadcrumb-current">My Orders</span>
           </div>
           <h1 className="ordered-page-title">
-            <span className="title-icon">📦</span> My Orders & Arrival Details
+            <span className="title-icon">
+              <PackageIcon size={26} />
+            </span>
+            <span>My Orders & Arrival Details</span>
           </h1>
           <p className="ordered-page-subtitle">
             Track your original artworks, delivery milestones, and order history.
@@ -185,7 +200,9 @@ function OrderedDetails({ cartCount = 0 }) {
             /* Empty State */
             <div className="orders-empty-state">
               <div className="empty-state-icon-wrapper">
-                <span className="empty-state-icon">🎨</span>
+                <span className="empty-state-icon">
+                  <PaletteIcon size={38} color="var(--primary-color)" />
+                </span>
               </div>
               <h2>No active orders yet</h2>
               <p>
@@ -197,7 +214,8 @@ function OrderedDetails({ cartCount = 0 }) {
                   className="btn btn-primary explore-art-btn"
                   onClick={() => navigate('/shop')}
                 >
-                  ✨ Explore & Shop Art
+                  <SparklesIcon size={16} />
+                  <span>Explore & Shop Art</span>
                 </button>
                 <button 
                   className="btn btn-outline home-btn"
@@ -252,13 +270,17 @@ function OrderedDetails({ cartCount = 0 }) {
                         </div>
                         <div className="order-date-block">
                           <span className="order-date-label">Placed On</span>
-                          <span className="order-date-value">📅 {formattedDate}</span>
+                          <span className="order-date-value">
+                            <CalendarIcon size={14} />
+                            <span>{formattedDate}</span>
+                          </span>
                         </div>
                       </div>
 
                       <div className="order-header-secondary">
                         <span className="order-status-badge in-transit">
-                          🚚 In Transit (2-3 Days)
+                          <TruckIcon size={14} />
+                          <span>In Transit (2-3 Days)</span>
                         </span>
                         <div className="order-total-block">
                           <span className="order-total-label">Total Amount</span>
@@ -306,7 +328,8 @@ function OrderedDetails({ cartCount = 0 }) {
                             onClick={() => toggleOrderDetails(orderId)}
                             aria-label={isExpanded ? 'Collapse order details' : 'Expand order details'}
                           >
-                            {isExpanded ? 'Hide Tracker ▲' : 'Track Arrival ▼'}
+                            <span>{isExpanded ? 'Hide Tracker' : 'Track Arrival'}</span>
+                            {isExpanded ? <ChevronUpIcon size={13} /> : <ChevronDownIcon size={13} />}
                           </button>
                         </div>
                       </div>
@@ -377,7 +400,8 @@ function OrderedDetails({ cartCount = 0 }) {
                                     navigate(`/product/${item.id}`);
                                   }}
                                 >
-                                  View Artwork ↗
+                                  <span>View Artwork</span>
+                                  <ExternalLinkIcon size={13} />
                                 </button>
                               )}
                             </div>
@@ -394,7 +418,8 @@ function OrderedDetails({ cartCount = 0 }) {
                           <div className="tracker-card-header">
                             <div className="tracker-header-info">
                               <h3 className="tracker-title">
-                                🚀 Simulated Arrival & Delivery Details
+                                <TruckIcon size={18} />
+                                <span>Simulated Arrival & Delivery Details</span>
                               </h3>
                               <p className="tracker-eta">
                                 Estimated Arrival: <strong>In 2–3 working days</strong>
@@ -411,7 +436,9 @@ function OrderedDetails({ cartCount = 0 }) {
                             {/* Step 1: Order Confirmed */}
                             <div className="timeline-step completed" role="listitem">
                               <div className="step-indicator">
-                                <span className="step-icon">✓</span>
+                                <span className="step-icon">
+                                  <CheckIcon size={14} />
+                                </span>
                                 <div className="step-connector"></div>
                               </div>
                               <div className="step-content">
@@ -424,7 +451,9 @@ function OrderedDetails({ cartCount = 0 }) {
                             {/* Step 2: Packed */}
                             <div className="timeline-step completed" role="listitem">
                               <div className="step-indicator">
-                                <span className="step-icon">✓</span>
+                                <span className="step-icon">
+                                  <CheckIcon size={14} />
+                                </span>
                                 <div className="step-connector"></div>
                               </div>
                               <div className="step-content">
@@ -437,7 +466,9 @@ function OrderedDetails({ cartCount = 0 }) {
                             {/* Step 3: Shipped (Active Step) */}
                             <div className="timeline-step active" role="listitem">
                               <div className="step-indicator">
-                                <span className="step-icon">→</span>
+                                <span className="step-icon">
+                                  <TruckIcon size={14} />
+                                </span>
                                 <div className="step-connector"></div>
                               </div>
                               <div className="step-content">
@@ -450,7 +481,9 @@ function OrderedDetails({ cartCount = 0 }) {
                             {/* Step 4: Out for Delivery */}
                             <div className="timeline-step pending" role="listitem">
                               <div className="step-indicator">
-                                <span className="step-icon">○</span>
+                                <span className="step-icon">
+                                  <ClockIcon size={14} />
+                                </span>
                                 <div className="step-connector"></div>
                               </div>
                               <div className="step-content">
@@ -463,7 +496,9 @@ function OrderedDetails({ cartCount = 0 }) {
                             {/* Step 5: Delivered */}
                             <div className="timeline-step pending" role="listitem">
                               <div className="step-indicator">
-                                <span className="step-icon">○</span>
+                                <span className="step-icon">
+                                  <PackageIcon size={14} />
+                                </span>
                               </div>
                               <div className="step-content">
                                 <div className="step-title">Delivered</div>
@@ -474,7 +509,10 @@ function OrderedDetails({ cartCount = 0 }) {
                           </div>
 
                           <div className="tracker-assurance">
-                            <span>🎨 <strong>Handmade Care:</strong> All artworks are hand-handled and inspected before final dispatch.</span>
+                            <span>
+                              <PaletteIcon size={15} color="var(--primary-color)" />
+                              <strong>Handmade Care:</strong> All artworks are hand-handled and inspected before final dispatch.
+                            </span>
                           </div>
                         </div>
 

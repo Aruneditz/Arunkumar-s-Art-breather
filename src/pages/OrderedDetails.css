@@ -258,6 +258,9 @@ Ordered Details / My Orders Page Styles
 }
 
 .order-date-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.9rem;
   color: var(--text-primary);
 }
@@ -389,6 +392,9 @@ Ordered Details / My Orders Page Styles
 }
 
 .toggle-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   padding: 0.45rem 0.9rem;
   font-size: 0.85rem;
   font-weight: 600;
@@ -513,6 +519,9 @@ Ordered Details / My Orders Page Styles
 }
 
 .btn-view-art {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   padding: 0.5rem 0.85rem;
   font-size: 0.8rem;
   font-weight: 600;
@@ -562,6 +571,9 @@ Ordered Details / My Orders Page Styles
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .tracker-eta {
@@ -722,6 +734,13 @@ Ordered Details / My Orders Page Styles
   font-size: 0.85rem;
   color: var(--text-secondary);
   border-left: 3px solid var(--primary-color);
+}
+
+.tracker-assurance span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
 /* Order Footer Details */

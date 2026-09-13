@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { PaletteIcon, SearchIcon, UserIcon } from './Icons';
 import './Navbar.css';
 
 /**
@@ -71,7 +72,9 @@ function Navbar({ cartCount = 0 }) {
       <div className="navbar-container">
         {/* Logo Section */}
         <Link to="/" className="navbar-brand">
-          <span className="brand-icon">🎨</span>
+          <span className="brand-icon">
+            <PaletteIcon size={22} className="brand-svg-icon" />
+          </span>
           <span className="brand-text">ART BREATHER</span>
         </Link>
 
@@ -136,7 +139,7 @@ function Navbar({ cartCount = 0 }) {
               onClick={toggleSearch}
               aria-label="Search"
             >
-              🔍
+              <SearchIcon size={18} />
             </button>
             <input
               type="text"
@@ -150,7 +153,8 @@ function Navbar({ cartCount = 0 }) {
           {user ? (
             <div className="user-menu">
               <Link to="/account" className="user-profile-btn">
-                👤 {user.name}
+                <UserIcon size={16} />
+                <span>{user.name}</span>
               </Link>
               <button className="logout-btn" onClick={handleLogout}>
                 Logout
@@ -158,7 +162,8 @@ function Navbar({ cartCount = 0 }) {
             </div>
           ) : (
             <Link to="/login" className="nav-link login-link">
-              👤 Login
+              <UserIcon size={16} />
+              <span>Login</span>
             </Link>
           )}
         </div>

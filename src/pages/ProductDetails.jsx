@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
+import { ChevronLeftIcon, ChevronRightIcon, SparklesIcon, PaletteIcon } from '../components/Icons';
 import products from '../data/products';
 import './ProductDetails.css';
 
@@ -163,7 +164,7 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
                       aria-label="Previous image"
                       title="Previous artwork image"
                     >
-                      ‹
+                      <ChevronLeftIcon size={22} />
                     </button>
 
                     {/* Next Button */}
@@ -174,7 +175,7 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
                       aria-label="Next image"
                       title="Next artwork image"
                     >
-                      ›
+                      <ChevronRightIcon size={22} />
                     </button>
 
                     {/* Active Dot Indicators */}
@@ -267,10 +268,12 @@ function ProductDetails({ onAddToCart, cartCount = 0 }) {
               {/* Additional Info */}
               <div className="additional-info">
                 <p className="info-text">
-                  ✨ Each artwork is unique and handmade with care
+                  <SparklesIcon size={18} color="var(--primary-color)" />
+                  <span>Each artwork is unique and handmade with care</span>
                 </p>
                 <p className="info-text">
-                  🎨 Authenticated original creation by our talented artists
+                  <PaletteIcon size={18} color="var(--primary-color)" />
+                  <span>Authenticated original creation by our talented artists</span>
                 </p>
               </div>
             </div>

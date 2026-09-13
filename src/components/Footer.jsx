@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { PaletteIcon } from './Icons';
 import './Footer.css';
 
 /**
@@ -24,7 +25,9 @@ function Footer() {
           {/* Brand Section */}
           <div className="footer-section">
             <h3 className="footer-brand">
-              <span className="footer-icon">🎨</span>
+              <span className="footer-icon">
+                <PaletteIcon size={20} className="footer-svg-icon" />
+              </span>
               ART BREATHER
             </h3>
             <p className="footer-tagline">

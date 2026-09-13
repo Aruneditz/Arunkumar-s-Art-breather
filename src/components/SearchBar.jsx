@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { SearchIcon, XIcon } from './Icons';
 import './SearchBar.css';
 
 /**
@@ -33,7 +34,9 @@ function SearchBar({ onSearch, placeholder = "Search artworks by title..." }) {
   return (
     <div className="search-bar">
       <div className="search-input-container">
-        <span className="search-icon">🔍</span>
+        <span className="search-icon">
+          <SearchIcon size={18} />
+        </span>
         <input
           type="text"
           className="search-input"
@@ -49,7 +52,7 @@ function SearchBar({ onSearch, placeholder = "Search artworks by title..." }) {
             aria-label="Clear search"
             title="Clear search"
           >
-            ✕
+            <XIcon size={16} />
           </button>
         )}
       </div>
