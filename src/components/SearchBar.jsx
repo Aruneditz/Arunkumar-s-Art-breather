@@ -144,11 +144,17 @@ function SearchBar({
 
   return (
     <div className="search-bar" ref={searchRef}>
-      <div className="search-input-container">
+      <form 
+        className="search-input-container"
+        autoComplete="off"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearchSubmit();
+        }}
+      >
         <button
-          type="button"
+          type="submit"
           className="search-icon-btn"
-          onClick={handleSearchSubmit}
           aria-label="Search artworks"
           title="Search"
         >
@@ -157,6 +163,8 @@ function SearchBar({
         <input
           ref={inputRef}
           type="text"
+          name="artbreather_search"
+          id="artbreather-search-input"
           className="search-input"
           placeholder={placeholder}
           value={searchQuery}
@@ -165,6 +173,12 @@ function SearchBar({
             if (hasQuery) setIsOpen(true);
           }}
           onKeyDown={handleKeyDown}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          data-lpignore="true"
+          data-form-type="other"
           aria-label="Search artworks"
           role="combobox"
           aria-expanded={showDropdown}
@@ -187,7 +201,7 @@ function SearchBar({
             <XIcon size={16} />
           </button>
         )}
-      </div>
+      </form>
 
       {showDropdown && (
         <div

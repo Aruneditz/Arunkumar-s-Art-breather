@@ -201,6 +201,98 @@ Navbar Component Styles (Dark Artistic Theme)
   color: var(--text-muted);
 }
 
+/* Navbar Search Suggestions Dropdown */
+.nav-search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  background-color: var(--bg-card, #191c28);
+  border: 1px solid var(--border-color, #2d3348);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 166, 35, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  animation: navSearchSlideIn 0.2s ease;
+}
+
+@keyframes navSearchSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.nav-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.nav-suggestion-item:hover {
+  background-color: rgba(245, 166, 35, 0.12);
+}
+
+.nav-suggestion-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #0f111a;
+}
+
+.nav-suggestion-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.nav-suggestion-title {
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-suggestion-tag {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-search-empty {
+  padding: 14px 10px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+
 .login-link {
   display: inline-flex;
   align-items: center;

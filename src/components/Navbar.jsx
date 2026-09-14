@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PaletteIcon, SearchIcon, UserIcon } from './Icons';
+import products from '../data/products';
+import { searchProducts } from '../utils/searchUtils';
 import './Navbar.css';
 
 /**
@@ -33,7 +35,48 @@ function Navbar({ cartCount = 0 }) {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [navSearchQuery, setNavSearchQuery] = useState('');
   const [user, setUser] = useState(null);
+  const navSearchRef = useRef(null);
+
+  // Compute suggestions from catalog for navbar search
+  const navSuggestions = useMemo(() => {
+    return searchProducts(products, navSearchQuery, 5);
+  }, [navSearchQuery]);
+
+  // Click outside to close navbar search
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navSearchRef.current && !navSearchRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
+  const handleNavSearchSubmit = (e) => {
+    if (e) e.preventDefault();
+    const trimmed = navSearchQuery.trim();
+    if (!trimmed) return;
+    setIsSearchOpen(false);
+    if (navSuggestions.length === 1) {
+      navigate(`/product/${navSuggestions[0].id}`);
+    } else {
+      navigate('/shop');
+    }
+  };
+
+  const handleSelectNavSuggestion = (item) => {
+    setIsSearchOpen(false);
+    setNavSearchQuery('');
+    navigate(`/product/${item.id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -132,9 +175,14 @@ function Navbar({ cartCount = 0 }) {
         </div>
 
         {/* Right Section - Search and Login/Profile */}
-        <div className="nav-right">
-          <div className={`search-container ${isSearchOpen ? 'active' : ''}`}>
+        <div className="nav-right" ref={navSearchRef}>
+          <form 
+            className={`search-container ${isSearchOpen ? 'active' : ''}`}
+            autoComplete="off"
+            onSubmit={handleNavSearchSubmit}
+          >
             <button 
+              type="button"
               className="search-btn"
               onClick={toggleSearch}
               aria-label="Search"
@@ -143,11 +191,49 @@ function Navbar({ cartCount = 0 }) {
             </button>
             <input
               type="text"
+              name="artbreather_nav_search"
+              id="navbar-search-input"
               className="search-input"
               placeholder="Search artworks..."
-              onBlur={() => setIsSearchOpen(false)}
+              value={navSearchQuery}
+              onChange={(e) => setNavSearchQuery(e.target.value)}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              data-lpignore="true"
             />
-          </div>
+            {isSearchOpen && navSearchQuery.trim() && (
+              <div className="nav-search-dropdown" role="listbox">
+                {navSuggestions.length > 0 ? (
+                  <ul className="nav-suggestions-list">
+                    {navSuggestions.map((item) => (
+                      <li
+                        key={item.id}
+                        className="nav-suggestion-item"
+                        onClick={() => handleSelectNavSuggestion(item)}
+                      >
+                        <img 
+                          src={`/${item.image}`} 
+                          alt={item.title} 
+                          className="nav-suggestion-thumb" 
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                        <div className="nav-suggestion-info">
+                          <span className="nav-suggestion-title">{item.title}</span>
+                          <span className="nav-suggestion-tag">{item.category} • ₹{item.price}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="nav-search-empty">
+                    <p>No matching artworks found</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </form>
           
           {/* Auth Section - Conditional Rendering */}
           {user ? (
