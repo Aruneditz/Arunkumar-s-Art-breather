@@ -7,6 +7,8 @@ SearchBar Component Styles
 .search-bar {
   width: 100%;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 40;
   animation: slideInDown 0.5s ease;
 }
 
@@ -23,38 +25,54 @@ SearchBar Component Styles
 
 .search-input-container:focus-within {
   border-color: var(--primary-color);
-  background-color: var(--bg-white);
-  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+  background-color: var(--bg-card);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
 }
 
-.search-icon {
-  font-size: 1.2rem;
-  padding-left: 1rem;
+.search-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 1rem;
   color: var(--text-secondary);
-  pointer-events: none;
+  cursor: pointer;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.search-icon-btn:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.search-icon-btn:active {
+  transform: scale(0.92);
 }
 
 .search-input {
   flex: 1;
   border: none;
   background: none;
-  padding: 1rem 1rem;
+  padding: 0.95rem 1rem;
   font-size: 1rem;
   color: var(--text-primary);
   outline: none;
   font-family: inherit;
+  min-width: 0;
 }
 
 .search-input::placeholder {
   color: var(--text-secondary);
+  opacity: 0.8;
 }
 
 .search-clear-btn {
   background: none;
   border: none;
   padding: 0 1rem;
-  font-size: 1.2rem;
   color: var(--text-secondary);
   cursor: pointer;
   transition: var(--transition);
@@ -69,32 +87,200 @@ SearchBar Component Styles
   transform: scale(1.15);
 }
 
-/* Responsive Design - Tablet */
+/* ==============================================
+   Search Suggestion Dropdown
+   ============================================== */
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--bg-card, #191c28);
+  border: 1px solid var(--border-color, #2d3348);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 166, 35, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+  animation: searchSlideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes searchSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, padding-left 0.15s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  outline: none;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background-color: rgba(245, 166, 35, 0.12);
+  padding-left: 20px;
+}
+
+.suggestion-thumb-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #0f111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggestion-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.suggestion-item:hover .suggestion-thumb,
+.suggestion-item.selected .suggestion-thumb {
+  transform: scale(1.08);
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.suggestion-title {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-tag {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-price {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* ==============================================
+   Empty State
+   ============================================== */
+
+.search-empty-state {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.search-empty-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.search-empty-hint {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==============================================
+   Responsive Design - Tablet
+   ============================================== */
+
 @media (max-width: 768px) {
   .search-bar {
     margin-bottom: 1.5rem;
   }
 
   .search-input {
-    padding: 0.75rem 0.75rem;
+    padding: 0.75rem 0.85rem;
     font-size: 0.95rem;
   }
 
-  .search-icon {
-    font-size: 1rem;
-    padding-left: 0.75rem;
+  .search-icon-btn {
+    margin-left: 0.85rem;
   }
 
   .search-clear-btn {
-    padding: 0 0.75rem;
-    font-size: 1rem;
+    padding: 0 0.85rem;
+  }
+
+  .suggestion-item {
+    gap: 12px;
+    padding: 9px 12px;
+  }
+
+  .suggestion-item:hover,
+  .suggestion-item.selected {
+    padding-left: 16px;
+  }
+
+  .suggestion-thumb-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .suggestion-title {
+    font-size: 0.9rem;
+  }
+
+  .suggestion-price {
+    font-size: 0.9rem;
   }
 }
 
-/* Responsive Design - Mobile */
+/* ==============================================
+   Responsive Design - Mobile (Down to 320px)
+   ============================================== */
+
 @media (max-width: 480px) {
   .search-bar {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .search-input-container {
@@ -102,17 +288,59 @@ SearchBar Component Styles
   }
 
   .search-input {
-    padding: 0.7rem 0.7rem;
-    font-size: 0.9rem;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.88rem;
   }
 
-  .search-icon {
-    font-size: 0.95rem;
-    padding-left: 0.7rem;
+  .search-icon-btn {
+    margin-left: 0.75rem;
   }
 
   .search-clear-btn {
-    padding: 0 0.7rem;
-    font-size: 1rem;
+    padding: 0 0.75rem;
+  }
+
+  .search-dropdown {
+    border-radius: 10px;
+    top: calc(100% + 6px);
+  }
+
+  .suggestion-item {
+    gap: 10px;
+    padding: 8px 10px;
+  }
+
+  .suggestion-item:hover,
+  .suggestion-item.selected {
+    padding-left: 12px;
+  }
+
+  .suggestion-thumb-wrapper {
+    width: 38px;
+    height: 38px;
+  }
+
+  .suggestion-title {
+    font-size: 0.85rem;
+  }
+
+  .suggestion-tag {
+    font-size: 0.75rem;
+  }
+
+  .suggestion-price {
+    font-size: 0.85rem;
+  }
+
+  .search-empty-state {
+    padding: 20px 12px;
+  }
+
+  .search-empty-title {
+    font-size: 0.88rem;
+  }
+
+  .search-empty-hint {
+    font-size: 0.78rem;
   }
 }

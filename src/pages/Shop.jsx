@@ -7,6 +7,7 @@ import FilterBar from '../components/FilterBar';
 import ProductGrid from '../components/ProductGrid';
 import { ChevronLeftIcon, ChevronRightIcon } from '../components/Icons';
 import products from '../data/products';
+import { getRelevanceScore } from '../utils/searchUtils';
 import './Shop.css';
 
 const ITEMS_PER_PAGE = 10;
@@ -51,11 +52,21 @@ function Shop({ onAddToCart, cartCount = 0 }) {
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    // Apply search filter
+    // Apply search filter with multi-field relevance scoring
     if (searchQuery.trim()) {
-      result = result.filter(product =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      result = result
+        .map(product => ({
+          product,
+          relevance: getRelevanceScore(product, searchQuery)
+        }))
+        .filter(item => item.relevance > 0)
+        .sort((a, b) => {
+          if (sortOption === 'default') {
+            return b.relevance - a.relevance || a.product.id - b.product.id;
+          }
+          return 0;
+        })
+        .map(item => item.product);
     }
 
     // Apply category filter
